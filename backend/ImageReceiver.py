@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import os
+import tensorflow as tf
 from tensorflow.keras.models import load_model
+import numpy as np
 import cv2
 
 
@@ -47,7 +49,13 @@ def resize_image(image_path, new_size):
 
 
 def run_machine_learning_model(image_file):
-    return model.predict(image_file)
+    resized_image = cv2.resize(image_file, (64, 64))
+    # Normalize pixel values to the range [0, 1]
+    normalized_image = resized_image.astype(np.float32) / 255.0
+    # Add an additional dimension for the batch
+    input_image = np.expand_dims(normalized_image, axis=0)
+    return int(tf.round(model.predict(input_image)).numpy()[0][0])
+
 
 if __name__ == '__main__':
     app.run(debug=True)  # Run the Flask app in debug mode

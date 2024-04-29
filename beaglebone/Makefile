@@ -1,8 +1,8 @@
 CC = g++
 CFLAGS = -O2
 LIBS = `pkg-config --cflags --libs opencv`
-KERNEL_SRC = lights.c
-KERNEL_TARGET = lights.ko
+KERNEL_SRC = lightcontrol.c
+KERNEL_TARGET = lightcontrol.ko
 SRC = capture_image.cpp
 TARGET = capture_image
 

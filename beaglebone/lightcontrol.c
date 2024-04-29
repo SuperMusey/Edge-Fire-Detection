@@ -73,7 +73,7 @@ static int lightcontrol_release(struct inode *inode, struct file *filp)
 }
 
 
-static int mytraffic_init(void)
+static int lightcontrol_init(void)
 {
     int ret;
     ret = register_chrdev(lightcontrol_major, "lightcontrol", &lightcontrol_fops);
@@ -127,7 +127,7 @@ fail:
 	return ret;
 }
 
-static void mytraffic_exit(void)
+static void lightcontrol_exit(void)
 {
 
     // printk(KERN_INFO "GPIO pins released.\n");

@@ -1,7 +1,13 @@
 from flask import Flask, request, jsonify
+import os
+from tensorflow.keras.models import load_model
+import cv2
+
 
 app = Flask(__name__)
 
+model_path = '../MLModel/Fire-64x64-color-v7.1-soft.h5'
+model = load_model(model_path)
 # Define the endpoint to handle image uploads
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -17,13 +23,31 @@ def upload_file():
     if not file.filename.lower().endswith(('.png', '.jpg', '.jpeg')):
         return jsonify({'error': 'Invalid file format, must be PNG or JPEG'}), 400
 
-    # Process the image using your machine learning model (replace this with your code)
-    prediction = run_machine_learning_model(file)
+    # Save the image file temporarily
+    uploads_directory = os.path.join(app.root_path, 'uploads')  # Directory within Flask app
+    if not os.path.exists(uploads_directory):
+        os.makedirs(uploads_directory)
+    image_path = os.path.join(uploads_directory, 'uploaded_image.jpg')
+    file.save(image_path)
+    
+    # Resize the image to the desired dimensions
+    resized_image = resize_image(image_path, (64, 64))
+    
+    prediction = run_machine_learning_model(resized_image)
 
     return jsonify({'prediction': prediction}), 200
 
+def resize_image(image_path, new_size):
+    # Load the image using OpenCV
+    image = cv2.imread(image_path)
+    # Resize the image to the new size
+    resized_image = cv2.resize(image, new_size)
+    print(resized_image.shape)
+    return resized_image
+
+
 def run_machine_learning_model(image_file):
-    return 0 
+    return model.predict(image_file)
 
 if __name__ == '__main__':
     app.run(debug=True)  # Run the Flask app in debug mode

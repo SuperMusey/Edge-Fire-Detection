@@ -1,13 +1,4 @@
 #!/bin/bash
-
-# Create device node if it doesn't exist
-if [ ! -e /dev/lightcontrol ]; then
-    mknod /dev/lightcontrol c 61 0
-fi
-
-# Load kernel module
-insmod /home/debian/EC535/beaglebone/km/lightcontrol.ko
-
 while true; do
 	# Run binary
 	echo "Running capture..."

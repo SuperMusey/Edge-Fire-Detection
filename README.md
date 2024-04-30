@@ -3,6 +3,8 @@
 ### Video on:
 [Youtube](https://youtu.be/4q--9_Go3nw)
 
+Video not on GitHub due to large file size.
+
 ## Overview Of Project
 
 The project involves creating an automatic fire detection system that can be deployed wirelessly. The concept uses the BeagleBone Black V4L2 and OpenCV libraries to take images using a Logitech Brio and send them to an ML model hosted on a Python backend to predict fires. The images are sent over the internet using curl by connecting the BeagleBone to an Ethernet cable and using a public IP tunneled to the local host using ngrok which runs the backend. The curl response is then sent back to the BeagleBone which uses a traffic light kernel module to show the risk of fire.

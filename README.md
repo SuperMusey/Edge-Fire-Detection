@@ -34,7 +34,7 @@ We use port 5000 because that is the port the Flask backend works on our devices
 ### Beaglebone
 The beaglebone portion of the project consists of the image capture portion and the kernel module to control the traffic lights.
 
-#### COnfiguration
+#### Configuration
 In order to run the capture_image.cpp we utilize the imageUse.sh file. First of all ensure that the `make` command has been run to build all the binaries. To do this first of all:
 1. `git clone` the repository
 2. Naviate to the `Edge-Fire-Detection/beaglebone` directory and run `make`

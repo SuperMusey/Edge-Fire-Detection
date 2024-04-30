@@ -8,7 +8,7 @@ import cv2
 
 app = Flask(__name__)
 
-model_path = '../MLModel/Fire-64x64-color-v7.1-soft.h5'
+model_path = 'Fire-64x64-color-v7.1-soft.h5'
 model = load_model(model_path)
 # Define the endpoint to handle image uploads
 @app.route('/upload', methods=['POST'])
